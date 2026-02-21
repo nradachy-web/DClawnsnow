@@ -44,6 +44,12 @@ body {
 }
 
 img { max-width: 100%; display: block; }
+img[src]::after { content: ''; display: block; position: absolute; inset: 0; background: var(--cream); }
+img:not([src]), img[src=""] { display: none; }
+/* Hide broken image containers gracefully */
+.about-img-main:has(img:not([complete])), .about-img-secondary:has(img:not([complete])) { background: var(--cream); }
+.service-card-img:has(img:not([complete])) { background: linear-gradient(135deg, var(--forest-deep), var(--sage)); }
+.gallery-item:has(img:not([complete])) { background: linear-gradient(135deg, var(--forest-deep), var(--sage)); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .section-pad { padding: 100px 0; }
 @media (max-width: 768px) { .section-pad { padding: 64px 0; } }
@@ -241,12 +247,14 @@ img { max-width: 100%; display: block; }
 }
 .about-highlight svg { width: 20px; height: 20px; color: var(--sage); flex-shrink: 0; }
 @media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .about-images { min-height: auto; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-images { min-height: auto; padding-bottom: 40px; }
+  .about-images.images-broken { display: none; }
   .about-img-main { max-width: 100%; }
-  .about-img-main img { height: 320px; }
-  .about-img-secondary { bottom: -20px; right: 5%; max-width: 220px; }
-  .about-img-secondary img { height: 150px; }
+  .about-img-main img { height: 280px; }
+  .about-img-secondary { bottom: -20px; right: 5%; max-width: 200px; }
+  .about-img-secondary img { height: 140px; }
+  .about-accent { width: 100px; height: 100px; top: -12px; left: -12px; }
 }
 
 /* ===== SERVICES ===== */
@@ -449,6 +457,8 @@ img { max-width: 100%; display: block; }
   100% { box-shadow: 0 0 0 0 rgba(26,58,42,0); }
 }
 @media (min-width: 901px) { .phone-float { display: none; } }
+@media (max-width: 900px) { .phone-float { bottom: 80px; right: 16px; width: 52px; height: 52px; } }
+@media (max-width: 900px) { .scroll-top { bottom: 80px; left: 16px; width: 42px; height: 42px; } }
 
 .scroll-top {
   position: fixed; bottom: 24px; left: 24px; width: 48px; height: 48px;
@@ -911,6 +921,36 @@ function handleSubmit() {
     setTimeout(() => { btn.textContent = 'Submit Request'; btn.style.background = 'var(--forest)'; }, 3000);
   }, 1200);
 }
+
+// Handle broken images gracefully
+document.querySelectorAll('img').forEach(img => {
+  const handleError = () => {
+    img.style.display = 'none';
+    // Hide empty service card image containers
+    const cardImg = img.closest('.service-card-img');
+    if (cardImg) { cardImg.style.background = 'linear-gradient(135deg, var(--forest-deep), var(--sage))'; cardImg.style.display = 'flex'; cardImg.style.alignItems = 'center'; cardImg.style.justifyContent = 'center'; }
+    // Hide empty gallery items
+    const galleryItem = img.closest('.gallery-item');
+    if (galleryItem) { galleryItem.style.background = 'linear-gradient(135deg, var(--forest-deep), var(--sage))'; }
+    // Hide about images section if both images broken
+    const aboutImages = img.closest('.about-images');
+    if (aboutImages) {
+      const allImgs = aboutImages.querySelectorAll('img');
+      const allBroken = Array.from(allImgs).every(i => i.style.display === 'none');
+      if (allBroken) aboutImages.classList.add('images-broken');
+    }
+    // Hide hero bg if broken
+    const heroBg = img.closest('.hero-bg');
+    if (heroBg) heroBg.style.display = 'none';
+    // Hide CTA bg if broken
+    const ctaBg = img.closest('.cta-bg');
+    if (ctaBg) ctaBg.style.display = 'none';
+    // Hide broken logo img
+    if (img.classList.contains('logo-img')) img.style.display = 'none';
+  };
+  img.addEventListener('error', handleError);
+  if (img.complete && img.naturalWidth === 0) handleError();
+});
 
 // Phone formatting
 document.getElementById('phone').addEventListener('input', (e) => {
