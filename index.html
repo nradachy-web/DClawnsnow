@@ -19,8 +19,8 @@
   --moss: #8bab73;
   --cream: #f5f0e8;
   --cream-dark: #e8e0d2;
-  --gold: #c8a24e;
-  --gold-light: #dbb964;
+  --gold: #34d399;
+  --gold-light: #6ee7b7;
   --white: #ffffff;
   --charcoal: #2a2a2a;
   --text: #3a3a3a;
@@ -220,16 +220,16 @@ img { max-width: 100%; display: block; }
 /* ===== ABOUT ===== */
 .about-section { background: var(--white); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.about-images { position: relative; }
-.about-img-main { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; z-index: 2; }
+.about-images { position: relative; display: flex; justify-content: center; align-items: center; min-height: 520px; }
+.about-img-main { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; z-index: 2; width: 100%; max-width: 520px; margin: 0 auto; }
 .about-img-main img { width: 100%; height: 480px; object-fit: cover; }
 .about-img-secondary {
-  position: absolute; bottom: -30px; right: -30px; width: 55%; border-radius: var(--radius-lg);
+  position: absolute; bottom: -30px; right: 0; width: 55%; max-width: 280px; border-radius: var(--radius-lg);
   overflow: hidden; box-shadow: var(--shadow-lg); border: 5px solid var(--white); z-index: 3;
 }
 .about-img-secondary img { width: 100%; height: 200px; object-fit: cover; }
 .about-accent {
-  position: absolute; top: -20px; left: -20px; width: 140px; height: 140px;
+  position: absolute; top: -20px; left: 0; width: 140px; height: 140px;
   background: var(--gold); border-radius: var(--radius-lg); opacity: 0.15; z-index: 1;
 }
 .about-content h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--forest); line-height: 1.15; margin-bottom: 24px; }
@@ -242,8 +242,10 @@ img { max-width: 100%; display: block; }
 .about-highlight svg { width: 20px; height: 20px; color: var(--sage); flex-shrink: 0; }
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-images { min-height: auto; }
+  .about-img-main { max-width: 100%; }
   .about-img-main img { height: 320px; }
-  .about-img-secondary { bottom: -20px; right: -10px; }
+  .about-img-secondary { bottom: -20px; right: 5%; max-width: 220px; }
   .about-img-secondary img { height: 150px; }
 }
 
