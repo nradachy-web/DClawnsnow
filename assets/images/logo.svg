@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3a2a"/>
+      <stop offset="100%" style="stop-color:#2d5a3f"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="36" fill="url(#bg)"/>
+  <text x="100" y="108" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Playfair Display', serif" font-weight="700" font-size="82" fill="#34d399" letter-spacing="-2">DC</text>
+  <text x="100" y="152" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="18" fill="rgba(255,255,255,0.7)" letter-spacing="6">LAWN &amp; SNOW</text>
+  <!-- Leaf accent -->
+  <path d="M100 28 C108 28, 118 36, 118 48 C118 60, 108 64, 100 64 C92 64, 82 60, 82 48 C82 36, 92 28, 100 28Z" fill="#34d399" opacity="0.3"/>
+  <line x1="100" y1="38" x2="100" y2="60" stroke="#34d399" stroke-width="1.5" opacity="0.4"/>
+</svg>
